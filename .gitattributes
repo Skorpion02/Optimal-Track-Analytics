@@ -1,1 +1,2 @@
-Optimal-Track-Analytics linguist-language=Python, SQL
+*.sql linguist-language=SQL
+*.py linguist-language=Python
