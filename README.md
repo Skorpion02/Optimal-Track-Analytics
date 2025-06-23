@@ -106,8 +106,6 @@ The following specific strategies are proposed to boost their development:
 
 * **SQL:** For data extraction and querying from the database.
     * `SQL`: For database.
-* **Python:**
-    * `pandas`: For data manipulation and analysis.
 
 ---
 
