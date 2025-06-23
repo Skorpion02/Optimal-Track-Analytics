@@ -1,4 +1,4 @@
-# 🎶 Optimal Track Analytics
+# 🎶 Optimal-Track-Analytics
 
 [![Issues](https://img.shields.io/github/issues/Skorpion02/Optimal-Track-Analytics?style=flat-square)](https://github.com/Skorpion02/Optimal-Track-Analytics/issues)
 [![Forks](https://img.shields.io/github/forks/Skorpion02/Optimal-Track-Analytics?style=flat-square)](https://github.com/Skorpion02/Optimal-Track-Analytics/network/members)
@@ -10,87 +10,116 @@
 
 ---
 
-> **Collaborative SQL analytics project for in-depth artist, follower, and popularity insights using a Spotify-style dataset.**
+## 📝 Project Overview
+
+This project focuses on analyzing artist data on Spotify to identify key trends and provide strategic recommendations to drive artist growth and promotion.  
+The main goal is to offer data-driven guidance for artists' success on the platform.
 
 ---
 
-## 🚀 Project Overview
+## 📊 Methodology
 
-- **Purpose:** Extract meaningful trends and business intelligence from a simulated Spotify database.
-- **Technology:** MySQL (SQL), advanced queries, easy to extend.
-
----
-
-## ✨ Key Features
-
-- 📊 **Artist Analytics:** Count statistics, spot duplicates, analyze followers & popularity over time.
-- 📈 **Growth Tracking:** Track follower increases and identify artists with highest/lowest growth.
-- 📅 **Temporal Trends:** Analyze popularity and followers by day, week, or interval.
-- 🏅 **Popularity Segmentation:** Classify artists (beginner, intermediate, star) by followers.
-- 🔍 **Comparative Queries:** Compare artists, find those above average, and analyze differences.
-- 🌍 **Locale Formatting:** Follower counts in Spanish number format for clarity.
-- 🧑‍💻 **Well-Commented SQL:** All queries are documented and easy to adapt.
+The analyzed data includes two main tables: `sp_artista` and `sp_artista_estadisticas`.  
+SQL queries were performed to extract relevant insights related to the popularity and follower growth of artists over a three-month period.  
+The results were processed and analyzed to identify key patterns, also detecting possible gaps in data collection and duplications.
 
 ---
 
-## 📂 Repository Structure
+## 📈 Analysis Results
 
-```
-Optimal-Track-Analytics/
-├── Optimal-Track-Analytics     # Main SQL queries and analytics
-├── sp_artista.csv / sp_artista_estadisticas.csv
-└── README.md
-```
+### Artists with the Highest Follower Growth
 
----
+The following artists showed the highest follower growth during the analyzed period:
 
-## 📝 Example Analytics
+| Artist        | Follower Growth | Average Popularity |
+|---------------|-----------------|--------------------|
+| Billie Eilish | 1,830,059       | 94.9               |
+| Ed Sheeran    | 1,771,423       | 93.6               |
+| Ariana Grande | 1,172,805       | 92.4               |
+| Travis Scott  | 1,073,118       | 97.2               |
+| Bad Bunny     | 926,105         | 99.7               |
 
-- **Count artist stats:**
-  ```sql
-  SELECT COUNT(ae.artista_id) AS "stat_count", a.nombre
-  FROM sp_artista_estadisticas ae
-  INNER JOIN sp_artista a ON ae.artista_id = a.artista_id
-  GROUP BY a.nombre;
-  ```
-- **Top 5 artists by follower growth:**
-  ```sql
-  SELECT a.nombre, MAX(ae.seguidores) - MIN(ae.seguidores) AS growth
-  FROM sp_artista_estadisticas ae
-  INNER JOIN sp_artista a ON ae.artista_id = a.artista_id
-  GROUP BY a.nombre
-  ORDER BY growth DESC
-  LIMIT 5;
-  ```
-- **Category by followers:**
-  ```sql
-  SELECT a.nombre,
-         SUM(ae.seguidores) AS total_seguidores,
-         CASE 
-           WHEN SUM(ae.seguidores) < 100000 THEN 'beginner'
-           WHEN SUM(ae.seguidores) BETWEEN 100000 AND 500000 THEN 'intermediate'
-           WHEN SUM(ae.seguidores) > 500000 THEN 'star'
-           ELSE 'uncategorized'
-         END as category
-  FROM sp_artista a
-  INNER JOIN sp_artista_estadisticas ae ON a.artista_id = ae.artista_id
-  GROUP BY a.artista_id, a.nombre
-  ORDER BY total_seguidores DESC;
-  ```
+### Artists with the Lowest Follower Growth
 
-*Find more queries in [`Ejercicio_grupal.sql`](./Ejercicio_grupal.sql)!*
+The following artists showed the lowest follower growth during the analyzed period:
+
+| Artist Name                             | Follower Growth | Average Popularity |
+|-----------------------------------------|-----------------|--------------------|
+| UNA                                     | 17.3            | 2                  |
+| Vernizzi Jazz  & Corrado Giuffredi      | 19.6            | 3                  |
+| RooRee                                  | 15.6            | 3                  |
+| Fynite                                  | 15.6            | 3                  |
+| Shannon Delani                          | 27              | 4                  |
+
+These artists are just starting and could learn from the high-growth artists to plan their marketing strategies, be more active, and increase their relevance on the platform.
+
+### General Trends
+
+* The average popularity of the analyzed artists is 63.2, reflecting a moderate-to-high level of acceptance among Spotify listeners.
+* Artists with the highest follower growth have average popularities above 90, highlighting their consistency in generated interest.
+* The standard deviation in the popularity of these artists is low, suggesting a stable and engaged audience.
 
 ---
 
-## 💡 How To Use
+## 🚀 Strategic Conclusions & Recommendations
 
-1. **Prepare MySQL environment and create tables** (`sp_artista`, `sp_artista_estadisticas`).
-2. **Import or populate your data.**
-3. **Run/modify queries from [`Ejercicio_grupal.sql`](./Ejercicio_grupal.sql) for your analysis needs.**
+### Key Strategic Conclusions
+
+1. **Statistic Count per Artist:** Allows identification of potential gaps in crucial data collection for decision-making based on complete metrics.
+2. **Duplicated Artists:** The need to maintain clean and consistent data is fundamental to ensure accurate tracking.
+3. **Artist with Most Followers on the Most Recent Date:** Focus promotional strategies on artists with the highest potential for engagement and return on investment.
+4. **Artists with Low Popularity:** Shows areas for improvement for specific marketing strategies, such as social media campaigns or collaborations.
+5. **Artists with More than 30,000 Followers:** Provides a key segment for targeted campaigns that consolidate their market position.
+6. **Most Popular Artist on a Specific Date:** Helps plan strategic music releases or events at times of high visibility.
+
+### General Strategic Recommendations
+
+* Prioritize artists with the highest number of followers for high-impact campaigns.
+* Implement targeted marketing strategies for artists with low popularity.
+* Maintain data quality to ensure informed decisions.
+* Utilize dates and events of highest popularity as key points for releases.
+
+### Measures for Artists with Follower Loss
+
+To reverse follower losses and foster growth, the following strategies are proposed:
+
+* **Reactivation of Interest:** Promote new marketing campaigns to revitalize interest in affected artists. This includes the launch of exclusive content, such as remixes, collaborations, or unreleased material.
+* **Content Analysis:** Review recent trends in published content to identify areas for improvement. Changes in genres, production quality, or even publication frequency can be key factors.
+* **Strategic Collaborations:** Encourage collaborations with artists of complementary genres or with overlapping follower bases to attract new audiences.
+* **Audience Analysis:** Use analytical tools to delve into demographic changes and follower preferences, adjusting the strategy to better align with their expectations.
+* **Expanded Digital Presence:** Improve presence on platforms beyond Spotify, such as YouTube, TikTok, and other social media, to capture the attention of a wider audience.
+
+### Specific Recommendations for Lower Popularity Artists
+
+The analysis identified a group of artists with lower popularity and fewer followers.  
+This group presents particular characteristics, such as a stable but limited follower base and relatively low follower growth.  
+The following specific strategies are proposed to boost their development:
+
+1. **Targeted Campaigns:** Focus efforts on advertising campaigns on social media and collaborations with more popular artists to expand their visibility and attract new followers.
+2. **Content Optimization:** Enhance discoverability through improvements in keywords and descriptions on their profiles, in addition to creating engaging content that resonates with specific audiences.
+3. **Audience Analysis:** Better understand the characteristics of their current listeners to identify opportunities for expansion into similar markets.
+4. **Consistency in Releases:** Maintain a release frequency that allows the audience to remain engaged and attract new listeners regularly.
 
 ---
 
-## 🤝 Contributing
+## 🛠️ Technologies Used
+
+* **SQL:** For data extraction and querying from the database.
+    * `SQL`: For database.
+* **Python:**
+    * `pandas`: For data manipulation and analysis.
+
+---
+
+## 🚀 How to Use / Reproduce the Analysis
+
+1. **Set up a MySQL-compatible environment.**
+2. **Create the required tables** (`sp_artista`, `sp_artista_estadisticas`) and load your data.
+3. **Run or adapt queries from [`Optimal-Track-Analytics.sql`](./Optimal-Track-Analytics.sql) for your analysis needs.
+
+---
+
+## 🤝 Contributions
 
 Contributions, questions, and suggestions are welcome!
 
@@ -100,16 +129,9 @@ Contributions, questions, and suggestions are welcome!
 
 ---
 
-## 📬 Contact
+## 📄 License
 
-- **Author:** [Skorpion02](https://github.com/Skorpion02)
-- **Repository:** [Optimal-Track-Analytics](https://github.com/Skorpion02/Optimal-Track-Analytics)
-
----
-
-## 📝 License
-
-This project is licensed under the [MIT License](LICENSE).
+Distributed under the [MIT License](LICENSE).
 
 ---
 
